@@ -15,12 +15,14 @@ function linkedList() {
             temp.nextNode.value = value;
         }
     }
+
     function prepend(value) {
         let temp = nodeFactory();
         temp.value = value;
         temp.nextNode = node;
         node = temp;
     }
+
     function toString() {
         let str = '';
         let temp = node;
@@ -51,7 +53,21 @@ function linkedList() {
         } while (temp !== null);
         return count;
     }
-    return { append, prepend, toString, size };
+
+    function head() {
+        return node;
+    }
+
+    function tail() {
+        let temp = node;
+        let tail;
+        while (temp !== null) {
+            tail = temp;
+            temp = temp.nextNode;
+        }
+        return tail;
+    }
+    return { append, prepend, toString, size, head, tail };
 }
 
 function nodeFactory() {
@@ -70,3 +86,5 @@ list.prepend('Aymane');
 list.append('Simo');
 console.log(list.size());
 list.toString();
+console.log(list.tail());
+console.log(list.head());
