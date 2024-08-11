@@ -136,7 +136,23 @@ function linkedList() {
         }
         prev.nextNode = null;
     }
-    return { append, prepend, toString, size, head, tail, at, pop };
+
+    function contains(value) {
+        let temp = node;
+        if (temp === null) {
+            return false;
+        }
+
+        while (true) {
+            if (temp === null) {
+                return false;
+            } else if (temp.value === value) {
+                return true;
+            }
+            temp = temp.nextNode;
+        }
+    }
+    return { append, prepend, toString, size, head, tail, at, pop, contains };
 }
 
 function nodeFactory() {
@@ -148,7 +164,6 @@ function nodeFactory() {
 let list = linkedList();
 console.log(list.size());
 list.append('Charlie');
-list.pop();
 list.append('David');
 list.append('Karl');
 list.prepend('Amine');
@@ -156,20 +171,8 @@ list.prepend('Aymane');
 list.append('Simo');
 console.log(list.size());
 list.toString();
-list.pop();
-list.toString();
-list.pop();
-list.toString();
-list.pop();
-list.toString();
-list.pop();
-list.toString();
-list.pop();
-list.toString();
-list.pop();
-list.pop();
-list.pop();
-list.toString();
 console.log(list.size());
-list.append('Karim');
-list.toString();
+console.log(list.contains('Aymane'));
+console.log(list.contains('dfsf'));
+list.prepend('dfsf');
+console.log(list.contains('dfsf'));
