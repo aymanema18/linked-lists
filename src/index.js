@@ -35,6 +35,7 @@ function linkedList() {
                 }
                 temp = temp.nextNode;
             } while (temp !== null);
+            str += ' -> null';
         }
         console.log(str);
     }
@@ -67,7 +68,27 @@ function linkedList() {
         }
         return tail;
     }
-    return { append, prepend, toString, size, head, tail };
+
+    function at(index) {
+        let temp = node;
+        let counter = 0;
+
+        if (index < 0 || typeof index !== 'number') {
+            return 'Error: invalid index';
+        }
+
+        while (true) {
+            if (temp === null) {
+                return 'Error: there is no Node at this index';
+            }
+            counter++;
+            if (counter === index + 1) {
+                return temp;
+            }
+            temp = temp.nextNode;
+        }
+    }
+    return { append, prepend, toString, size, head, tail, at };
 }
 
 function nodeFactory() {
@@ -86,5 +107,4 @@ list.prepend('Aymane');
 list.append('Simo');
 console.log(list.size());
 list.toString();
-console.log(list.tail());
-console.log(list.head());
+console.log(list.at(3));
