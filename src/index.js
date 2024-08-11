@@ -36,7 +36,22 @@ function linkedList() {
         }
         console.log(str);
     }
-    return { append, prepend, toString };
+
+    function size() {
+        let temp = node;
+        let count = 0;
+        if (!temp) {
+            return 0;
+        }
+        do {
+            if (temp) {
+                count++;
+            }
+            temp = temp.nextNode;
+        } while (temp !== null);
+        return count;
+    }
+    return { append, prepend, toString, size };
 }
 
 function nodeFactory() {
@@ -46,9 +61,12 @@ function nodeFactory() {
 }
 
 let list = linkedList();
+console.log(list.size());
 list.append('Charlie');
-list.append('Karl');
 list.append('David');
-list.append('Simo');
+list.append('Karl');
+list.prepend('Amine');
 list.prepend('Aymane');
+list.append('Simo');
+console.log(list.size());
 list.toString();
