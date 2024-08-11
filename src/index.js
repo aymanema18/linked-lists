@@ -1,43 +1,57 @@
 function linkedList() {
     let node = nodeFactory();
     function append(value) {
-        let temp = node;
-        while (temp.nextNode !== null) {
-            if (temp.value === null) {
-                temp.value = value;
-            }
-            temp = temp.nextNode;
-        }
-        if (temp.nextNode === null && temp.value === null) {
-            temp.value = value;
+        if (node === null) {
+            node = nodeFactory();
+            node.value = value;
         } else {
-            temp.nextNode = nodeFactory();
-            temp.nextNode.value = value;
+            let temp = node;
+            while (temp.nextNode !== null) {
+                if (temp.value === null) {
+                    temp.value = value;
+                }
+                temp = temp.nextNode;
+            }
+            if (temp.nextNode === null && temp.value === null) {
+                temp.value = value;
+            } else {
+                temp.nextNode = nodeFactory();
+                temp.nextNode.value = value;
+            }
         }
     }
 
     function prepend(value) {
-        let temp = nodeFactory();
-        temp.value = value;
-        temp.nextNode = node;
-        node = temp;
+        if (node === null) {
+            node = nodeFactory();
+            node.value = value;
+        } else {
+            let temp = nodeFactory();
+            temp.value = value;
+            temp.nextNode = node;
+            node = temp;
+        }
     }
 
     function toString() {
-        let str = '';
-        let temp = node;
-        if (temp.value !== null) {
-            do {
-                if (str === '') {
-                    str += `( ${temp.value} )`;
-                } else {
-                    str += ` -> ( ${temp.value} )`;
-                }
-                temp = temp.nextNode;
-            } while (temp !== null);
-            str += ' -> null';
+        if (node === null) {
+            console.log('null');
+        } else {
+            let str = '';
+            let temp = node;
+            if (temp.value !== null) {
+                do {
+                    if (str === '') {
+                        str += `( ${temp.value} )`;
+                    } else {
+                        str += ` -> ( ${temp.value} )`;
+                    }
+                    temp = temp.nextNode;
+                } while (temp !== null);
+                str += ' -> null';
+            }
+            console.log(str);
         }
-        console.log(str);
     }
 
     function size() {
@@ -88,7 +102,41 @@ function linkedList() {
             temp = temp.nextNode;
         }
     }
-    return { append, prepend, toString, size, head, tail, at };
+
+    function pop() {
+        if (node === null) {
+            return;
+        }
+        let check = node;
+        let temp = node;
+        let curr;
+        let prev;
+        let counter = 0;
+
+        while (true) {
+            if (temp === null) {
+                break;
+            }
+            counter++;
+            temp = temp.nextNode;
+        }
+
+        if (counter === 1) {
+            node = null;
+            return;
+        }
+
+        while (true) {
+            if (check === null) {
+                break;
+            }
+            prev = curr;
+            curr = check;
+            check = check.nextNode;
+        }
+        prev.nextNode = null;
+    }
+    return { append, prepend, toString, size, head, tail, at, pop };
 }
 
 function nodeFactory() {
@@ -100,6 +148,7 @@ function nodeFactory() {
 let list = linkedList();
 console.log(list.size());
 list.append('Charlie');
+list.pop();
 list.append('David');
 list.append('Karl');
 list.prepend('Amine');
@@ -107,4 +156,20 @@ list.prepend('Aymane');
 list.append('Simo');
 console.log(list.size());
 list.toString();
-console.log(list.at(3));
+list.pop();
+list.toString();
+list.pop();
+list.toString();
+list.pop();
+list.toString();
+list.pop();
+list.toString();
+list.pop();
+list.toString();
+list.pop();
+list.pop();
+list.pop();
+list.toString();
+console.log(list.size());
+list.append('Karim');
+list.toString();
