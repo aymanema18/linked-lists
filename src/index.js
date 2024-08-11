@@ -152,7 +152,32 @@ function linkedList() {
             temp = temp.nextNode;
         }
     }
-    return { append, prepend, toString, size, head, tail, at, pop, contains };
+
+    function find(value) {
+        let temp = node;
+        let counter = 0;
+        while (true) {
+            if (temp === null) {
+                return null;
+            } else if (temp.value === value) {
+                return counter;
+            }
+            counter++;
+            temp = temp.nextNode;
+        }
+    }
+    return {
+        append,
+        prepend,
+        toString,
+        size,
+        head,
+        tail,
+        at,
+        pop,
+        contains,
+        find,
+    };
 }
 
 function nodeFactory() {
@@ -174,5 +199,13 @@ list.toString();
 console.log(list.size());
 console.log(list.contains('Aymane'));
 console.log(list.contains('dfsf'));
-list.prepend('dfsf');
+list.append('dfsf');
 console.log(list.contains('dfsf'));
+list.toString();
+console.log(list.find('dfsf'));
+list.pop();
+console.log(list.find('dfsf'));
+console.log(list.find('David'));
+list.prepend('dv');
+console.log(list.find('dv'));
+console.log(list.at(0));
