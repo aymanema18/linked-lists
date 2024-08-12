@@ -50,7 +50,7 @@ function linkedList() {
                 } while (temp !== null);
                 str += ' -> null';
             }
-            console.log(str);
+            return str;
         }
     }
 
@@ -166,6 +166,46 @@ function linkedList() {
             temp = temp.nextNode;
         }
     }
+    function insertAt(value, index = null) {
+        let temp = node;
+        let newNode;
+        if (index < 0 || index === null) {
+            return 'Error: invalid index';
+        }
+        if (index > size()) {
+            return 'Error: index is out of range';
+        }
+        if (temp === null) {
+            node = linkedList();
+            node.value = value;
+            return;
+        }
+        if (index === 0) {
+            prepend(value);
+            return;
+        }
+
+        temp = at(index - 1);
+        newNode = linkedList();
+        newNode.value = value;
+        newNode.nextNode = temp.nextNode;
+        temp.nextNode = newNode;
+    }
+
+    function removeAt(index = null) {
+        let temp = node;
+        let nodeDl;
+        if (temp === null || index === null || index < 0 || index >= size()) {
+            return;
+        }
+        if (index === 0) {
+            node = temp.nextNode;
+            return;
+        }
+        temp = at(index - 1);
+        nodeDl = at(index);
+        temp.nextNode = nodeDl.nextNode;
+    }
     return {
         append,
         prepend,
@@ -177,6 +217,8 @@ function linkedList() {
         pop,
         contains,
         find,
+        insertAt,
+        removeAt,
     };
 }
 
@@ -186,26 +228,12 @@ function nodeFactory() {
     return { value, nextNode };
 }
 
-let list = linkedList();
-console.log(list.size());
-list.append('Charlie');
-list.append('David');
-list.append('Karl');
-list.prepend('Amine');
-list.prepend('Aymane');
-list.append('Simo');
-console.log(list.size());
+const list = linkedList();
+
+list.append('dog');
+list.append('cat');
+list.append('parrot');
+list.append('hamster');
+list.append('snake');
+list.append('turtle');
 list.toString();
-console.log(list.size());
-console.log(list.contains('Aymane'));
-console.log(list.contains('dfsf'));
-list.append('dfsf');
-console.log(list.contains('dfsf'));
-list.toString();
-console.log(list.find('dfsf'));
-list.pop();
-console.log(list.find('dfsf'));
-console.log(list.find('David'));
-list.prepend('dv');
-console.log(list.find('dv'));
-console.log(list.at(0));
